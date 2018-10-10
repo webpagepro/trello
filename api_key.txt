@@ -1,0 +1,59 @@
+07b0ed0cbbbf555f08ca82d9fcf847e7f45785f893534d78c7e3b3a0a1ce98ac
+07b0ed0cbbbf555f08ca82d9fcf847e7f45785f893534d78c7e3b3a0a1ce98ac
+
+OAuth:
+7fe128054f36bd4f630e71a34d3143d0bcd1918a8aa25bb4e8c0f2942217b40e
+
+API Key:
+1b6241ff3ff159ba82c4d0c40a232eae
+
+
+https://trello.com/1/authorize?expiration=1day&name=MyPersonalToken&scope=read&response_type=token&key=07b0ed0cbbbf555f08ca82d9fcf847e7f45785f893534d78c7e3b3a0a1ce98ac
+
+
+
+{
+    "id": "5bbbc2628cd8f1043950e28b",
+    "name": "Quarter One Project",
+    "desc": "",
+    "descData": null,
+    "closed": false,
+    "idOrganization": null,
+    "pinned": false,
+    "url": "https://trello.com/b/xdo42f54/quarter-one-project",
+    "shortUrl": "https://trello.com/b/xdo42f54",
+    "prefs": {
+        "permissionLevel": "public",
+        "voting": "disabled",
+        "comments": "members",
+        "invitations": "members",
+        "selfJoin": false,
+        "cardCovers": true,
+        "cardAging": "regular",
+        "calendarFeedEnabled": false,
+        "background": "grey",
+        "backgroundImage": null,
+        "backgroundImageScaled": null,
+        "backgroundTile": false,
+        "backgroundBrightness": "dark",
+        "backgroundColor": "#838C91",
+        "backgroundBottomColor": "#838C91",
+        "backgroundTopColor": "#838C91",
+        "canBePublic": true,
+        "canBeOrg": true,
+        "canBePrivate": true,
+        "canInvite": true
+    },
+    "labelNames": {
+        "green": "",
+        "yellow": "",
+        "orange": "",
+        "red": "",
+        "purple": "",
+        "blue": "",
+        "sky": "",
+        "lime": "",
+        "pink": "",
+        "black": ""
+    }
+}
