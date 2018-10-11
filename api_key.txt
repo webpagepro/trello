@@ -3,7 +3,7 @@ trello.com/1/authorize?expiration=1day&name=MyPersonalToken&scope=read&response_
 
 
 {
-    "id": "5bbbc2628cd8f1043950e28b",
+    "id": "",
     "name": "Quarter One Project",
     "desc": "",
     "descData": null,
