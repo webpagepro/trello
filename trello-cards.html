@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+     <script src="http://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://api.trello.com/1/client.js?key=1b6241ff3ff159ba82c4d0c40a232eae"></script>
+    <!--link rel="stylesheet" media="screen" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"-->
+    <link rel="stylesheet" media="screen" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <title></title>
+<style>
+h2{
+  margin-top:16px;
+}
+.short_url{
+  padding-left:14px;
+}
+.container{
+max-width:500px;
+}
+</style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Trello Dashboard</h2>
+      <div>
+        <form class="form-horizontal" id="boards_form">
+          <div class="form-group">
+            <label class="control-label">Choose your card</label>
+              <select class="form-control" id="boards"></select>
+          </div>
+      </div>
+    <div class="board_response alert alert-warning alert-dismissible fade show" role="alert"></div>
+    <div class="short_url"></div>
+  </div>
+
+    <script>
+    // Get all of the information about the boards you have access to
+    let data = null;
+    const api_key = '1b6241ff3ff159ba82c4d0c40a232eae';
+    const tokn = '07b0ed0cbbbf555f08ca82d9fcf847e7f45785f893534d78c7e3b3a0a1ce98ac'
+   var xhr = new XMLHttpRequest();
+    var board_id = '5bbbc2628cd8f1043950e28b';
+     const cardId = '5bbe9307e297b93b02977f3e';
+    var board_url = `https://api.trello.com/1/boards/${board_id}?key=${api_key}&token=${tokn}`;
+    var card_url = `https://api.trello.com/1/members/me/cards?key=${api_key}&token=${tokn}`;
+  //  https://api.trello.com/1/members/me/cards?key=1b6241ff3ff159ba82c4d0c40a232eae&token=07b0ed0cbbbf555f08ca82d9fcf847e7f45785f893534d78c7e3b3a0a1ce98ac
+  /*
+   //  const createRequest = function(cardId) {
+  var request = new XMLHttpRequest();
+  request.responseType = "json";
+ request.onreadystatechange = function() {
+    // When we have a response back from the server we want to share it!
+    // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/response
+    if (request.readyState === 4) {
+      console.log(`Successfully uploaded at: ${request.response.date}`);
+   // }
+ };
+  request.open("POST", `https://api.trello.com/1/cards/${cardId}`);
+  //return request;
+       console.log(request);
+};
+xhr.open("GET", request);
+   xhr.send(data);
+           */
+    const boardResponse = document.querySelector('.board_response');
+    const shortLink = document.querySelector('.short_url');
+    const select = document.querySelector('select');
+  /*  xhr.addEventListener("readystatechange", function () {
+      if (this.readyState === this.DONE) {
+       console.log(this.responseText);
+       console.log("----------------------------------------------------");
+      }
+    });
+    */
+    fetch(card_url)
+  // once we have our data clean it up for us
+  .then(function(res) {
+    // turn readable stream into json (javascript object notation)
+    return res.json();
+  })
+  // once data is turned into json do something else
+  .then(function(jsonData) {
+//console.log(jsonData);
+let newObj = jsonData;
+console.log(jsonData);
+//for(let k in newObj){
+const info = document.createElement('div');
+info.className = "info";
+info.innerHTML = newObj[0].desc;
+boardResponse.appendChild(info);
+const link = document.createElement('a');
+link.className = "short_url";
+link.href = newObj[0].shortUrl;
+link.text = "view card";
+shortLink.appendChild(link);
+
+for(let i = 0; i < 3; i++){
+  const opt = document.createElement('option');
+  opt.innerHTML = newObj[i].name;
+  opt.value = newObj[i].shortUrl;
+  select.appendChild(opt);
+}
+});
+/*
+link.className = "short_url";
+link.href = newObj[0].shortUrl;
+link.text = "view card";
+shortLink.appendChild(link);
+});
+*/
+  //  xhr.open("GET", board_url);
+  //  xhr.send(data);
+</script
+  </body>
+</html>

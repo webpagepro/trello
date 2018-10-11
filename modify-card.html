@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+     <script src="http://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://api.trello.com/1/client.js?key=1b6241ff3ff159ba82c4d0c40a232eae"></script>
+    <!--link rel="stylesheet" media="screen" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"-->
+    <link rel="stylesheet" media="screen" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <title></title>
+<style>
+h2{
+  margin-top:16px;
+}
+.short_url{
+  padding-left:14px;
+}
+.container{
+max-width:500px;
+}
+.short_url{
+  position:relative;
+  right:-165px;
+}
+</style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Trello Dashboard</h2>
+      <div>
+        <form class="form-horizontal" id="boards_form">
+          <div class="form-group">
+            <label class="control-label">Choose your card</label>
+              <select class="form-control" id="cards"></select>
+          </div>
+      </div>
+      <div class="card-body">
+        <div class="card">
+    <div class="board_response" role="alert"></div>
+    <div class="short_url"></div>
+  </div>
+
+  <input class="save btn-primary btn-lg" type="submit" value="Submit">
+  </form>
+    </div>
+    </div>
+      <script>
+    // Get all of the information about the boards you have access to
+    let data = null;
+    const api_key = '1b6241ff3ff159ba82c4d0c40a232eae';
+    const tokn = '07b0ed0cbbbf555f08ca82d9fcf847e7f45785f893534d78c7e3b3a0a1ce98ac'
+   var xhr = new XMLHttpRequest();
+    var board_id = '5bbbc2628cd8f1043950e28b';
+     const cardId = '5bb3ed14e367e683a8c911d4';
+    var board_url = `https://api.trello.com/1/boards/${board_id}?key=${api_key}&token=${tokn}`;
+    var card_url = `https://api.trello.com/1/members/me/cards?key=${api_key}&token=${tokn}`;
+
+
+  /* var putURL = `/1/cards/${cardId}/${property}?value=${newValue}`; /* https://api.trello.com/1/members/me/cards?key=1b6241ff3ff159ba82c4d0c40a232eae&token=07b0ed0cbbbf555f08ca82d9fcf847e7f45785f893534d78c7e3b3a0a1ce98ac
+   */
+
+
+   var xhr = new XMLHttpRequest();
+
+   xhr.addEventListener("readystatechange", function () {
+     if (this.readyState === this.DONE) {
+       console.log(this.responseText);
+     }
+   });
+
+   xhr.open("PUT", "https://api.trello.com/1/cards/5bb3ed14e367e683a8c911d4?name=Project%20One%20Presentation%20Requirements&due=2018-10-12&key=1b6241ff3ff159ba82c4d0c40a232eae&token=07b0ed0cbbbf555f08ca82d9fcf847e7f45785f893534d78c7e3b3a0a1ce98ac");
+
+   xhr.send(data);
+
+//PUT https://api.trello.com/1/cards/5a43c80fa2cc50186c1f8df9?name=second%20list,%20card%20TOOOO&desc=a%20less%20briefer%20description&key=<your-key>&token=<your-token>
+  /*
+   //  const createRequest = function(cardId) {
+  var request = new XMLHttpRequest();
+  request.responseType = "json";
+ request.onreadystatechange = function() {
+    // When we have a response back from the server we want to share it!
+    // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/response
+    if (request.readyState === 4) {
+      console.log(`Successfully uploaded at: ${request.response.date}`);
+   // }
+ };
+  request.open("POST", `https://api.trello.com/1/cards/${cardId}`);
+  //return request;
+       console.log(request);
+};
+xhr.open("GET", request);
+   xhr.send(data);
+           */
+    const boardResponse = document.querySelector('.board_response');
+    const shortLink = document.querySelector('.short_url');
+    const select = document.querySelector('select');
+  const saveBtn = document.querySelector(".save");
+  /*  xhr.addEventListener("readystatechange", function () {
+      if (this.readyState === this.DONE) {
+       console.log(this.responseText);
+       console.log("----------------------------------------------------");
+      }
+    });
+    */
+    fetch(card_url)
+  // once we have our data clean it up for us
+  .then(function(res) {
+    // turn readable stream into json (javascript object notation)
+    return res.json();
+  })
+  // once data is turned into json do something else
+  .then(function(jsonData) {
+//console.log(jsonData);
+let newObj = jsonData;
+console.log(jsonData);
+//for(let k in newObj){
+const info = document.createElement('div');
+info.className = "info";
+info.innerHTML = newObj[0].desc;
+boardResponse.appendChild(info);
+const link = document.createElement('a');
+link.className = "short_url";
+link.href = newObj[0].shortUrl;
+link.text = "view board";
+shortLink.appendChild(link);
+for(let i = 0; i < 3; i++){
+  const opt = document.createElement('option');
+  opt.innerHTML = newObj[0].name;
+  opt.value = newObj[0].shortUrl;
+  select.appendChild(opt);
+}
+link.className = "short_url";
+link.href = newObj[0].shortUrl;
+link.text = "view board";
+shortLink.appendChild(link);
+});
+  //  xhr.open("GET", board_url);
+  //  xhr.send(data);
+
+
+  select.addEventListener("change", function(e){
+fetch(rolesURL)
+.then
+    (res2 => res2.json())
+.then
+        (jsonData2 => {
+   for(let j = 0; j < jsonData2.length; j++){
+    const pic = document.createElement('img');
+    if(dropdown.value === "Select an option here"){
+      image.src = "https://via.placeholder.com/275x275";
+    }
+    image.src = "assets/images/" + dropdown.value + ".jpg";
+   }
+        console.log(dropdown.value);
+  });
+
+});
+saveBtn.addEventListener("click", function(e){
+  if (typeof e.cancelable !== 'boolean' || e.cancelable) {
+  e.preventDefault();
+
+      }    else {
+      // The event cannot be canceled, so it is not safe
+      // to call preventDefault() on it.
+      console.warn(`The following event couldn't be canceled:`);
+      console.dir(e);
+    }
+
+    const postURL = "https://galvanize-student-apis.herokuapp.com/gpersonnel/users";
+      const objData = {
+        firstName: fname.value,
+        lastName: lname.value,
+        role: dropdown.value
+      }
+
+      const params = {
+        headers: {
+          "content-type":"application/json; charset=UTF-8"
+      },
+
+      body:objData,
+      method:"PUT"
+    };
+
+    console.log(objData, params);
+
+  if(
+fetch(card_url, params))
+{
+  console.log("success");
+
+}
+
+else{
+  console.log("failed");
+}
+
+});
+
+
+
+</script
+  </body>
+</html>
