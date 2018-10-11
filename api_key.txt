@@ -1,14 +1,4 @@
-07b0ed0cbbbf555f08ca82d9fcf847e7f45785f893534d78c7e3b3a0a1ce98ac
-07b0ed0cbbbf555f08ca82d9fcf847e7f45785f893534d78c7e3b3a0a1ce98ac
-
-OAuth:
-7fe128054f36bd4f630e71a34d3143d0bcd1918a8aa25bb4e8c0f2942217b40e
-
-API Key:
-1b6241ff3ff159ba82c4d0c40a232eae
-
-
-https://trello.com/1/authorize?expiration=1day&name=MyPersonalToken&scope=read&response_type=token&key=07b0ed0cbbbf555f08ca82d9fcf847e7f45785f893534d78c7e3b3a0a1ce98ac
+trello.com/1/authorize?expiration=1day&name=MyPersonalToken&scope=read&response_type=token&key=07b0ed0cbbbf555f08ca82d9fcf847e7f45785f893534d78c7e3b3a0a1ce98ac
 
 
 
