@@ -17,11 +17,14 @@ h2{
   padding-left:14px;
 }
 .container{
-max-width:500px;
+max-width:550px;
 }
 .short_url{
   position:relative;
   right:-165px;
+}
+.card-body{
+  width:540px;
 }
 </style>
   </head>
@@ -35,8 +38,9 @@ max-width:500px;
               <select class="form-control" id="cards"></select>
           </div>
       </div>
-      <div class="card-body">
+
         <div class="card">
+      <div class="card-body">
     <div class="board_response" role="alert"></div>
     <div class="short_url"></div>
   </div>
@@ -52,15 +56,15 @@ max-width:500px;
     const tokn = '07b0ed0cbbbf555f08ca82d9fcf847e7f45785f893534d78c7e3b3a0a1ce98ac'
    var xhr = new XMLHttpRequest();
     var board_id = '5bbbc2628cd8f1043950e28b';
-     const cardId = '5bb3ed14e367e683a8c911d4';
+     const cardIds = ['5bb3ed14e367e683a8c911d4', '5bbbc2871480b771dd6c53c3', '5bb3ecc81cbaf00d84865da7', '5bbdff6e75770f4f4d76b4b3'];
     var board_url = `https://api.trello.com/1/boards/${board_id}?key=${api_key}&token=${tokn}`;
     var card_url = `https://api.trello.com/1/members/me/cards?key=${api_key}&token=${tokn}`;
 
-
+console.log(cardIds);
   /* var putURL = `/1/cards/${cardId}/${property}?value=${newValue}`; /* https://api.trello.com/1/members/me/cards?key=1b6241ff3ff159ba82c4d0c40a232eae&token=07b0ed0cbbbf555f08ca82d9fcf847e7f45785f893534d78c7e3b3a0a1ce98ac
    */
 
-
+//function ajaxCall(id){
    var xhr = new XMLHttpRequest();
 
    xhr.addEventListener("readystatechange", function () {
@@ -69,10 +73,11 @@ max-width:500px;
      }
    });
 
-   xhr.open("PUT", "https://api.trello.com/1/cards/5bb3ed14e367e683a8c911d4?name=Project%20One%20Presentation%20Requirements&due=2018-10-12&key=1b6241ff3ff159ba82c4d0c40a232eae&token=07b0ed0cbbbf555f08ca82d9fcf847e7f45785f893534d78c7e3b3a0a1ce98ac");
+   xhr.open("PUT", card_url //"https://api.trello.com/1/cards/5bb3ed14e367e683a8c911d4?name=Project%20One%20Presentation%20Requirements&due=2018-10-12&key=1b6241ff3ff159ba82c4d0c40a232eae&token=07b0ed0cbbbf555f08ca82d9fcf847e7f45785f893534d78c7e3b3a0a1ce98ac");
 
    xhr.send(data);
-
+//   return;
+//}
 //PUT https://api.trello.com/1/cards/5a43c80fa2cc50186c1f8df9?name=second%20list,%20card%20TOOOO&desc=a%20less%20briefer%20description&key=<your-key>&token=<your-token>
   /*
    //  const createRequest = function(cardId) {
@@ -122,25 +127,28 @@ boardResponse.appendChild(info);
 const link = document.createElement('a');
 link.className = "short_url";
 link.href = newObj[0].shortUrl;
-link.text = "view board";
+link.text = "view card";
 shortLink.appendChild(link);
-for(let i = 0; i < 3; i++){
+
+
   const opt = document.createElement('option');
   opt.innerHTML = newObj[0].name;
-  opt.value = newObj[0].shortUrl;
+  opt.value = newObj.shortUrl;
   select.appendChild(opt);
-}
+
+/*
 link.className = "short_url";
 link.href = newObj[0].shortUrl;
-link.text = "view board";
+link.text = "view card";
 shortLink.appendChild(link);
+*/
 });
   //  xhr.open("GET", board_url);
   //  xhr.send(data);
 
 
-  select.addEventListener("change", function(e){
-fetch(rolesURL)
+  select.addEventListener("change", ajax(cardIds){
+fetch(card_url)
 .then
     (res2 => res2.json())
 .then

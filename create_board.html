@@ -21,11 +21,13 @@ h2{
   <body>
     <div class="container">
       <h2>Trello Dashboard</h2>
+      <div class="auth"></div>
       <div>
-        <form class="form-horizontal" id="boards_form">
+        <form class="form-horizontal" id="boards_form" action="createNewBoard();">
           <div class="form-group">
             <label class="control-label">Choose your board</label>
-              <select class="form-control" id="boards"></select>
+            <input id="new_bord_name" class="form-control" type="text" placeholder="New Board Name">
+            <input type="submit" class="primary"/>
           </div>
       </div>
     <div class="board_response alert alert-warning alert-dismissible fade show" role="alert"></div>
@@ -33,6 +35,12 @@ h2{
   </div>
 
     <script>
+
+    // Trello
+  //  const Trello = require("trello");
+    // api keys
+    //let trello = new Trello(
+
     // Get all of the information about the boards you have access to
     var data = null;
     var api_key = '1b6241ff3ff159ba82c4d0c40a232eae';
@@ -41,20 +49,25 @@ h2{
     var board_id = '5bbbc2628cd8f1043950e28b';
    var board_url = `https://api.trello.com/1/boards/${board_id}?key=${api_key}&token=${tokn}`;
   //  var board_url = "https://api.trello.com/1/me/boards/";
-    const boardResponse = document.querySelector('.board_response');
-    const shortLink = document.querySelector('.short_url');
-    const select = document.querySelector('select');
+var conn = `https://trello.com/1/authorize?key=${api_key}&scope=read&name=MyDashboard&expiration=never&response_type=${tokn}`;
 
-  /*  xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === this.DONE) {
-       console.log(this.responseText);
-       console.log("----------------------------------------------------");
+let new_board_name = document.querySelector('#new_board_name').value;
 
-      }
-    });
-    */
 
-    fetch(board_url)
+var data = null;
+var xhr = new XMLHttpRequest();
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", `https://api.trello.com/1/boards/?name=${new_board_name}&defaultLabels=true&defaultLists=true&keepFromSource=none&prefs_permissionLevel=private&prefs_voting=disabled&prefs_comments=members&prefs_invitations=members&prefs_selfJoin=true&prefs_cardCovers=true&prefs_background=blue&prefs_cardAging=regular&key=${api_key}&token=${tokn}`);
+
+xhr.send(data);
+
+}
+/*    fetch(conn)
   // once we have our data clean it up for us
   .then(function(res) {
 
@@ -65,7 +78,32 @@ h2{
   .then(function(jsonData) {
 //console.log(jsonData);
 let newObj = jsonData;
-console.log(newObj);
+*/
+console.log(xhr);
+
+
+
+const boardResponse = document.querySelector('.board_response');
+const shortLink = document.querySelector('.short_url');
+const select = document.querySelector('select');
+const auth = document.querySelector('.auth');
+
+const btn = document.createElement('a');
+btn.className = "btn";
+btn.innerHTML="Authenticate User";
+btn.width='100px';
+btn.height='50px';
+btn.style.color="#fff"
+btn.style.backgroundColor="blue";
+btn.href=conn;
+auth.appendChild(btn);
+
+btn.addEventListener('click', function(e){
+  btn.onclick=conn;
+e.preventDefault;
+
+//});
+
 
 //for(let k in newObj){
 const info = document.createElement('div');
