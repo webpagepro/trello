@@ -1,0 +1,30 @@
+<html>	 
+       <head>	    
+      <title>A Trello Dashboard</title>	    
+      <link rel="stylesheet" media="screen" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">	  </head>	 
+       <body>	   
+             <div class="container">	  
+             
+                  <h1>Trello Dashboard</h1>	   
+                     <!-- We will be putting our dashboard right here -->	   
+                   </div> 	
+                    </body>	
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript"></script>	  
+  <!-- REPLACE AppKey WITH YOUR APPLICATION KEY -->	 
+   <script src="https://api.trello.com/1/client.js?key=1b6241ff3ff159ba82c4d0c40a232eae">
+   </script>	  	 
+    <script type="text/javascript">	   
+   
+    Trello.authorize({type: "popup",	     
+     name: "Trello dashboard",	      
+     scope: { read: true,	       
+     write: false 	 
+      },	      
+      expiration: "never",	   
+         success: function() { console.log("Successful authentication"); 
+         },	 
+              error: function() { console.log("Failed authentication"); 
+              }	 
+       });	
+     </script>
+     	</html>

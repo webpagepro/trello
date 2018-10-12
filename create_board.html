@@ -15,7 +15,9 @@ h2{
 }
 .short_url{
   padding-left:14px;
-}
+} 
+
+
 </style>
   </head>
   <body>
@@ -23,17 +25,9 @@ h2{
       <h2>Trello Dashboard</h2>
       <div class="auth"></div>
       <div>
-        <form class="form-horizontal" id="boards_form" action="createNewBoard();">
+        <form class="form-horizontal" id="boards_form" >
           <div class="form-group">
-            <label class="control-label">Choose your board</label>
-            <input id="new_bord_name" class="form-control" type="text" placeholder="New Board Name">
-            <input type="submit" class="primary"/>
-          </div>
-      </div>
-    <div class="board_response alert alert-warning alert-dismissible fade show" role="alert"></div>
-    <div class="short_url"></div>
-  </div>
-
+           
     <script>
 
     // You need to iterate through the boards. First, get the boards for the member:
@@ -60,17 +54,7 @@ var conn = `https://api.trello.com/1/members/me/cards?key=${api_key}&scope=read&
 let new_board_name = document.querySelector('#new_board_name');
 
 
-var data = null;
-var xhr = new XMLHttpRequest();
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === this.DONE) {
-    console.log(this.responseText);
-  }
-});
 
-xhr.open("POST", `https://api.trello.com/1/boards/?name=${new_board_name}&defaultLabels=true&defaultLists=true&keepFromSource=none&prefs_permissionLevel=private&prefs_voting=disabled&prefs_comments=members&prefs_invitations=members&prefs_selfJoin=true&prefs_cardCovers=true&prefs_background=blue&prefs_cardAging=regular&key=${api_key}&token=${tokn}`);
-
-xhr.send(data);
 
 
 /*    fetch(conn)
@@ -136,11 +120,30 @@ link.text = "view board";
 shortLink.appendChild(link);
 
 });
+var data = null;
+var xhr = new XMLHttpRequest();
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
 
+function createNewBoard(){
+xhr.open("POST", `https://api.trello.com/1/boards/?name=${new_board_name}&defaultLabels=true&defaultLists=true&keepFromSource=none&prefs_permissionLevel=private&prefs_voting=disabled&prefs_comments=members&prefs_invitations=members&prefs_selfJoin=true&prefs_cardCovers=true&prefs_background=blue&prefs_cardAging=regular&key=${api_key}&token=${tokn}`);
 
+xhr.send(data);
+}
   //  xhr.open("GET", board_url);
   //  xhr.send(data);
 </script>
+ <label class="control-label" id="choose">Choose your board</label>
+ <input id="new_bord_name" class="form-control" type="text" placeholder="New Board Name">
+ <input type="submit" class="primary" onClick="createNewBoard()" action="createNewBoard()"/>
+</div>
+</div>
+<div class="board_response alert alert-warning alert-dismissible fade show" role="alert"></div>
+<div class="short_url alert alert-warning alert-dismissible fade show"></div>
+</div>
 
   </body>
 </html>

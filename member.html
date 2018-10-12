@@ -20,13 +20,21 @@ h2{
 padding:20px 0;
  
 }
+
+.short_url{
+  display:flex;
+  flex-direction:column;
+}
+label{
+  margin: 40px 0;
+}
 </style>
   </head>
   <body>
     <div class="container">
       <h2>Trello Dashboard</h2>
       <div class="auth"></div>
-      <div><label class="control-label">Choose your card</label>
+      <div><label class="control-label"><h4>Choose your card</h4></label>
         <select class="form-control" id="boards"></select>
         <!--form class="form-horizontal" id="boards_form">
           <div class="form-group">
@@ -37,7 +45,7 @@ padding:20px 0;
       </div>
     <div class="board_response alert alert-warning alert-dismissible fade show" role="alert"></div>
     <div class="board_links"></div>
-    <div class="short_url"></div>
+    <div class="short_url .row"></div>
   </div>
 
     <script>
@@ -106,7 +114,7 @@ btn.width='100px';
 btn.height='50px';
 btn.style.color="#fff"
 btn.style.backgroundColor="blue";
-btn.href=member_url;
+btn.href=conn;
 auth.appendChild(btn);
 
 btn.addEventListener('click', function(e){
@@ -144,7 +152,7 @@ shortLink.appendChild(link);
 
 link.className = "short_url";
 link.href = newObj[i].shortUrl;
-link.text = "view board";
+link.text = newObj[i].name;;
 shortLink.appendChild(link);
 }
 });
