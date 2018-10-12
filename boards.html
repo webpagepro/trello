@@ -16,22 +16,25 @@ h2{
 .short_url{
   padding-left:14px;
 }
+#boards_form{
+  width:500px;
+}
 </style>
   </head>
   <body>
     <div class="container">
       <h2>Trello Dashboard</h2>
-      <div>
+      <div class="main">
         <form class="form-horizontal" id="boards_form">
           <div class="form-group">
             <label class="control-label">Choose your board</label>
               <select class="form-control" id="boards"></select>
           </div>
-      </div>
+      
     <div class="board_response alert alert-warning alert-dismissible fade show" role="alert"></div>
     <div class="short_url"></div>
   </div>
-
+</div>
     <script>
     // Get all of the information about the boards you have access to
     var data = null;

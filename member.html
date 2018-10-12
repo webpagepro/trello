@@ -16,21 +16,27 @@ h2{
 .short_url{
   padding-left:14px;
 }
+  h2{
+padding:20px 0;
+ 
+}
 </style>
   </head>
   <body>
     <div class="container">
       <h2>Trello Dashboard</h2>
       <div class="auth"></div>
-      <div>
-        <form class="form-horizontal" id="boards_form" action="createNewBoard();">
+      <div><label class="control-label">Choose your card</label>
+        <select class="form-control" id="boards"></select>
+        <!--form class="form-horizontal" id="boards_form">
           <div class="form-group">
             <label class="control-label">Choose your board</label>
             <input id="new_bord_name" class="form-control" type="text" placeholder="New Board Name">
             <input type="submit" class="primary"/>
-          </div>
+          </div-->
       </div>
     <div class="board_response alert alert-warning alert-dismissible fade show" role="alert"></div>
+    <div class="board_links"></div>
     <div class="short_url"></div>
   </div>
 
@@ -51,15 +57,16 @@ h2{
     var data = null;
     var api_key = '1b6241ff3ff159ba82c4d0c40a232eae';
     var tokn = '07b0ed0cbbbf555f08ca82d9fcf847e7f45785f893534d78c7e3b3a0a1ce98ac'
-    var xhr = new XMLHttpRequest();
-    var board_id = '5bbbc2628cd8f1043950e28b';
-   var board_url = `https://api.trello.com/1/boards/${board_id}?key=${api_key}&token=${tokn}`;
+   // var xhr = new XMLHttpRequest();
+   // var board_id = '5bbbc2628cd8f1043950e28b';
+    var member_url = `https://api.trello.com/1/members/me/boards?key=${api_key}&token=${tokn}`
+  // var board_url = `https://api.trello.com/1/boards/${board_id}?key=${api_key}&token=${tokn}`;
   //  var board_url = "https://api.trello.com/1/me/boards/";
 var conn = `https://api.trello.com/1/members/me/cards?key=${api_key}&scope=read&name=MyDashboard&expiration=never&response_type=${tokn}`;
 
 let new_board_name = document.querySelector('#new_board_name');
 
-
+/* 
 var data = null;
 var xhr = new XMLHttpRequest();
 xhr.addEventListener("readystatechange", function () {
@@ -68,12 +75,12 @@ xhr.addEventListener("readystatechange", function () {
   }
 });
 
-xhr.open("POST", `https://api.trello.com/1/boards/?name=${new_board_name}&defaultLabels=true&defaultLists=true&keepFromSource=none&prefs_permissionLevel=private&prefs_voting=disabled&prefs_comments=members&prefs_invitations=members&prefs_selfJoin=true&prefs_cardCovers=true&prefs_background=blue&prefs_cardAging=regular&key=${api_key}&token=${tokn}`);
+xhr.open("GET", member_url);
 
 xhr.send(data);
+*/
 
-
-/*    fetch(conn)
+   fetch(member_url)
   // once we have our data clean it up for us
   .then(function(res) {
 
@@ -84,12 +91,10 @@ xhr.send(data);
   .then(function(jsonData) {
 //console.log(jsonData);
 let newObj = jsonData;
-*/
-//console.log(xhr);
 
-
-
+console.log(newObj);
 const boardResponse = document.querySelector('.board_response');
+const boardLinks = document.querySelector('.board_links');
 const shortLink = document.querySelector('.short_url');
 const select = document.querySelector('select');
 const auth = document.querySelector('.auth');
@@ -101,40 +106,47 @@ btn.width='100px';
 btn.height='50px';
 btn.style.color="#fff"
 btn.style.backgroundColor="blue";
-btn.href=conn;
+btn.href=member_url;
 auth.appendChild(btn);
 
 btn.addEventListener('click', function(e){
-  btn.onclick=conn;
+  //btn.onclick=conn;
 e.preventDefault;
 
-//});
+});
 
 
-//for(let k in newObj){
-const info = document.createElement('div');
-info.className = "info";
-info.innerHTML = newObj.name;
-boardResponse.appendChild(info);
-
-const link = document.createElement('a');
-link.className = "short_url";
-link.href = newObj.shortUrl;
-link.text = "view board";
-shortLink.appendChild(link);
-
-for(let i = 0; i < 3; i++){
-  const opt = document.createElement('option');
-  opt.innerHTML = newObj.name;
-  opt.value = newObj.shortUrl;
-  select.appendChild(opt);
+for(let i = 0; i < newObj.length; i++){
+    const info = document.createElement('div');
+    info.className = "info";
+    info.innerHTML = newObj[i].name;
+    boardResponse.appendChild(info);
 }
 
+for(let i = 0; i < newObj.length; i++){
+    const boardLink = document.createElement('a');
+    boardLink.className = "boards_items";
+    boardLink.href = newObj[i].shortUrl;
+    boardLink.appendChild(boardLinks);
+ 
+const link = document.createElement('a');
 link.className = "short_url";
-link.href = newObj.shortUrl;
+link.href = newObj[i].shortUrl;
 link.text = "view board";
 shortLink.appendChild(link);
 
+ 
+  const opt = document.createElement('option');
+  opt.innerHTML = newObj[i].name;
+  opt.value = newObj[i].shortUrl;
+  select.appendChild(opt);
+
+
+link.className = "short_url";
+link.href = newObj[i].shortUrl;
+link.text = "view board";
+shortLink.appendChild(link);
+}
 });
 
 
