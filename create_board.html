@@ -15,19 +15,35 @@ h2{
 }
 .short_url{
   padding-left:14px;
-} 
+}
+  h2{
+padding:20px 0;
+ 
+}
 
-
+.short_url{
+  display:flex;
+  flex-direction:column;
+}
+label{
+  margin: 10px 0;
+}
+input[type="submit"]{
+  margin-top:8px;
+}
 </style>
   </head>
   <body>
     <div class="container">
       <h2>Trello Dashboard</h2>
+      <h4>Create New Board</h4>
       <div class="auth"></div>
       <div>
-        <form class="form-horizontal" id="boards_form" >
+        <form class="form-horizontal" id="boards_form" method="post" >
           <div class="form-group">
-           
+              <label class="control-label" id="choose">Enter name for new Trello board</label>
+              <input id="new_bord_name" class="form-control" type="text" placeholder="New Board Name">
+        
     <script>
 
     // You need to iterate through the boards. First, get the boards for the member:
@@ -51,10 +67,9 @@ h2{
   //  var board_url = "https://api.trello.com/1/me/boards/";
 var conn = `https://api.trello.com/1/members/me/cards?key=${api_key}&scope=read&name=MyDashboard&expiration=never&response_type=${tokn}`;
 
-let new_board_name = document.querySelector('#new_board_name');
 
-
-
+ let new_board_name = "My New Trello Board"; //document.querySelector('#new_board_name');
+let new_board = `https://api.trello.com/1/boards/?name=${new_board_name}&defaultLabels=true&defaultLists=true&keepFromSource=none&prefs_permissionLevel=private&prefs_voting=disabled&prefs_comments=members&prefs_invitations=members&prefs_selfJoin=true&prefs_cardCovers=true&prefs_background=blue&prefs_cardAging=regular&key=${api_key}&token=${tokn}`
 
 
 /*    fetch(conn)
@@ -78,19 +93,24 @@ const shortLink = document.querySelector('.short_url');
 const select = document.querySelector('select');
 const auth = document.querySelector('.auth');
 
+/*
+
+let createNewBoard = `https://api.trello.com/1/boards/?name=${new_board_name}&defaultLabels=true&defaultLists=true&keepFromSource=none&prefs_permissionLevel=private&prefs_voting=disabled&prefs_comments=members&prefs_invitations=members&prefs_selfJoin=true&prefs_cardCovers=true&prefs_background=blue&prefs_cardAging=regular&key=${api_key}&token=${tokn}`;
+
+
 const btn = document.createElement('a');
 btn.className = "btn";
-btn.innerHTML="Authenticate User";
+btn.innerHTML="Create New Board";
 btn.width='100px';
 btn.height='50px';
 btn.style.color="#fff"
 btn.style.backgroundColor="blue";
-btn.href=conn;
+btn.href=newBoard();
 auth.appendChild(btn);
-
+*/
 btn.addEventListener('click', function(e){
-  btn.onclick=conn;
-e.preventDefault;
+  
+//e.preventDefault;
 
 //});
 
@@ -113,12 +133,12 @@ for(let i = 0; i < 3; i++){
   opt.value = newObj.shortUrl;
   select.appendChild(opt);
 }
-
+/*
 link.className = "short_url";
 link.href = newObj.shortUrl;
 link.text = "view board";
 shortLink.appendChild(link);
-
+*/
 });
 var data = null;
 var xhr = new XMLHttpRequest();
@@ -128,17 +148,20 @@ xhr.addEventListener("readystatechange", function () {
   }
 });
 
-function createNewBoard(){
-xhr.open("POST", `https://api.trello.com/1/boards/?name=${new_board_name}&defaultLabels=true&defaultLists=true&keepFromSource=none&prefs_permissionLevel=private&prefs_voting=disabled&prefs_comments=members&prefs_invitations=members&prefs_selfJoin=true&prefs_cardCovers=true&prefs_background=blue&prefs_cardAging=regular&key=${api_key}&token=${tokn}`);
+
+function newBoard(){
+ 
+xhr.open("POST", new_board);
 
 xhr.send(data);
 }
+
   //  xhr.open("GET", board_url);
   //  xhr.send(data);
 </script>
- <label class="control-label" id="choose">Choose your board</label>
- <input id="new_bord_name" class="form-control" type="text" placeholder="New Board Name">
- <input type="submit" class="primary" onClick="createNewBoard()" action="createNewBoard()"/>
+
+ <input type="submit" class="btn-primary" onClick="newBoard()"/>
+</form>
 </div>
 </div>
 <div class="board_response alert alert-warning alert-dismissible fade show" role="alert"></div>

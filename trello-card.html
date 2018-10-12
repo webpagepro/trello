@@ -16,8 +16,17 @@ h2{
 .short_url{
   padding-left:14px;
 }
-.container{
-max-width:500px;
+  h2{
+padding:20px 0;
+ 
+}
+
+.short_url{
+  display:flex;
+  flex-direction:column;
+}
+label{
+  margin: 10px 0;
 }
 </style>
   </head>
@@ -87,15 +96,31 @@ xhr.open("GET", request);
 //console.log(jsonData);
 let newObj = jsonData;
 console.log(jsonData);
+
 //for(let k in newObj){
-const info = document.createElement('div');
-info.className = "info";
-info.innerHTML = newObj[0].desc;
-boardResponse.appendChild(info);
+const cname = document.createElement('div');
+const cmembers = document.createElement('div');
+const idCheckList = document.createElement('div');
+const due = document.createElement('div');
+const desc = document.createElement('div');
+
+cname.className = "info";
+desc.innerHTML = "<b>Card Name</b>:  " + newObj[0].desc;
+cmembers.innerHTML = "<b>Card Member Ids</b>:  " + newObj[0].idMembers;
+idCheckList.innerHTML = "<b>ID Check List</b>:  " + newObj[0].idCheckList;
+due.innerHTML = "<b>Due Date</b>:  " + newObj[0].due;
+
+boardResponse.appendChild(cname);
+boardResponse.appendChild(desc);
+boardResponse.appendChild(cmembers);
+boardResponse.appendChild(idCheckList);
+boardResponse.appendChild(due);
+
+
 const link = document.createElement('a');
 link.className = "short_url";
 link.href = newObj[0].shortUrl;
-link.text = "view board";
+link.text = "view card";
 shortLink.appendChild(link);
 for(let i = 0; i < 3; i++){
   const opt = document.createElement('option');
@@ -105,7 +130,7 @@ for(let i = 0; i < 3; i++){
 }
 link.className = "short_url";
 link.href = newObj[0].shortUrl;
-link.text = "view board";
+link.text = "view card";
 
 shortLink.appendChild(link);
 });
